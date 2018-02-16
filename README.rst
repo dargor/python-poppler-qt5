@@ -1,3 +1,12 @@
+==========
+DISCLAIMER
+==========
+
+This is a personal copy of the original repository, for my own usage since I
+use this package quite extensively. I included the current pull requests to the
+original project so I could have a working package, use it at your own risk
+(but it works for me, YMMV).
+
 ==================
 python-poppler-qt5
 ==================
