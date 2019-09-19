@@ -2,7 +2,7 @@
 
 project = dict(
     name = 'python-poppler-qt5',
-    version = '0.24.2',
+    version = '0.75.0',
     description = 'A Python binding to Poppler-Qt5',
     long_description = (
         'A Python binding to Poppler-Qt5 that aims for '
@@ -12,10 +12,10 @@ project = dict(
     ),
     maintainer = 'Wilbert Berendsen',
     maintainer_email = 'wbsoft@xs4all.nl',
-    url = 'https://github.com/wbsoft/python-poppler-qt5',
+    url = 'https://github.com/frescobaldi/python-poppler-qt5',
     license = 'LGPL',
     classifiers = [
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable'
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
         'Operating System :: MacOS :: MacOS X',
@@ -260,19 +260,14 @@ class build_ext(build_ext_base):
         self.write_version_sip(ver, version)
         
         # Disable features if older poppler-qt5 version is found.
-        # See the defined tags in %Timeline{} in poppler-qt5.sip.
-        if not ver or ver <= (0, 20, 0):
-            tag = 'POPPLER_V0_20_0'
-        elif ver < (0, 22, 0):
-            tag = 'POPPLER_V0_20_0'
-        elif ver < (0, 24, 0):
-            tag = 'POPPLER_V0_22_0'
-        elif ver < (0, 24, 5):
-            tag = 'POPPLER_V0_24_0'
-        elif ver < (0, 28, 0):
-            tag = 'POPPLER_V0_24_5'
-        else:
-            tag = 'POPPLER_V0_28_0'
+        # See the defined tags in %Timeline{} in timeline.sip.
+        tag = 'POPPLER_V0_20_0'
+        if ver:
+            with open("timeline.sip", "r") as f:
+                for m in re.finditer(r'POPPLER_V(\d+)_(\d+)_(\d+)', f.read()):
+                    if ver < tuple(map(int, m.group(1, 2, 3))):
+                        break
+                    tag = m.group()
         
         cmd = [sip_bin]
         if hasattr(self, 'sip_opts'):

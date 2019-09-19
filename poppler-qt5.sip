@@ -1,4 +1,4 @@
-%Module(name=popplerqt5, version=0)
+%Module(name=popplerqt5)
 
 /*
  * Bindings for Poppler-Qt5 to Python
@@ -13,13 +13,7 @@
 %Import QtXml/QtXmlmod.sip
 %End
 
-%Timeline {
-    POPPLER_V0_20_0
-    POPPLER_V0_22_0
-    POPPLER_V0_24_0
-    POPPLER_V0_24_5
-    POPPLER_V0_28_0
-}
+%Include timeline.sip
 
 %ModuleHeaderCode
 #include <qt5/poppler-qt5.h>
@@ -37,6 +31,7 @@
 %Include poppler-form.sip
 %Include poppler-link.sip
 %Include poppler-link-destination.sip
+%Include poppler-media.sip
 %Include poppler-movie-object.sip
 %Include poppler-opt-content-model.sip
 %Include poppler-page.sip
@@ -55,6 +50,10 @@ QDateTime convertDate (char *dateString);
 bool isOverprintPreviewAvailable();
 %End
 
+%If(POPPLER_V0_64_0 -)
+QDateTime convertDate (char *dateString);
+QDateTime convertDate (const char *dateString);
+%End
 
 }; // namespace Poppler
 
