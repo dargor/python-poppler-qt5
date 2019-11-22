@@ -1,9 +1,9 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_{4,5,6}} )
+PYTHON_COMPAT=( python{2_7,3_{5,6}} )
 COMMIT=50fb2eb9ea34cf94e3756b7ddfc601af023267d5
 inherit distutils-r1 flag-o-matic qmake-utils vcs-snapshot
 
@@ -13,11 +13,11 @@ SRC_URI="https://github.com/wbsoft/${PN}/archive/${COMMIT}.tar.gz -> ${P}.tar.gz
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE=""
 
 RDEPEND="
-	app-text/poppler:=[qt5]
+	app-text/poppler[qt5]
 	dev-python/PyQt5[${PYTHON_USEDEP}]
 	>=dev-python/sip-4.19:=[${PYTHON_USEDEP}]
 "
